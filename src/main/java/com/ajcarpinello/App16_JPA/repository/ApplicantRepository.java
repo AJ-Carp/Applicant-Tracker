@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 // extends PagingAndSortingRepository, adding all features
-public interface ApplicantJPARepository extends JpaRepository<Applicant, Long> {
+public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 
     // can get pretty specific without having to write any queries
     List<Applicant> findByStatusOrderByNameDesc(String status);

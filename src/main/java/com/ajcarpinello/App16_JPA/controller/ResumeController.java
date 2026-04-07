@@ -7,13 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/resumes")
 public class ResumeController {
 
     @Autowired
     private ResumeService resumeService;
 
-    @PostMapping("/{applicantId}/resume")
+    @PostMapping("/{applicantId}/addResume")
     public ResponseEntity<Resume> addResume(@PathVariable Long applicantId, @RequestBody Resume resume) {
         return ResponseEntity.ok(resumeService.addResume(applicantId, resume));
     }

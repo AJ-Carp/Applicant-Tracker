@@ -1,7 +1,10 @@
 package com.ajcarpinello.App16_JPA.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "resumes")
 public class Resume {
@@ -9,36 +12,19 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String content;
-
-    // one resume per applicant
     @OneToOne
-    // JoinColumn specifies the foreign key
-    /* the column won't actually contain applicants,
-       it will contain their id's and the name of this column will be applicantId */
+    // @JoinColumn says that this entity is the owner of the relationship, meaning it contains the foreign key
+    // the name of column will be applicantId and cannot be false, it by default takes the primary key of the applicants
     @JoinColumn(name = "applicantId", nullable = false)
+    // ignore the inner applicant JSON in input and output
+    @JsonIgnore
     private Applicant applicant;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Applicant getApplicant() {
-        return applicant;
-    }
-
-    public void setApplicant(Applicant applicant) {
-        this.applicant = applicant;
+    /* Jackson will automatically call
+       this method and add "applicantId" to the JSON output
+       so that we see the foreign key (totally optional)
+     */
+    public Long getApplicantId() {
+        return applicant != null ? applicant.getId() : null;
     }
 }

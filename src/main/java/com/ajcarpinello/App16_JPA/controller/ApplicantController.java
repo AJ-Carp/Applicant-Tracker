@@ -14,7 +14,7 @@ public class ApplicantController {
     @Autowired
     private ApplicantService applicantService;
 
-    @GetMapping
+    @GetMapping("getAllApplicants")
     public List<Applicant> getAllApplicants() {
         return applicantService.getAllApplicants();
     }
@@ -29,7 +29,7 @@ public class ApplicantController {
         return applicantService.getByPartialName(name);
     }
 
-    @PostMapping
+    @PostMapping("saveApplicant")
     public Applicant saveApplicant(@RequestBody Applicant applicant) {
         return applicantService.saveApplicant(applicant);
     }
@@ -45,7 +45,3 @@ public class ApplicantController {
         return applicantService.getApplicantsWithPagination(page, size);
     }
 }
-
-
-// https://www.youtube.com/watch?v=IG7f9bAPJYs&list=PL-bgVzzRdaPhNeXyQBtp8hMlUc14J2kRK&index=28
-// left off: 32:33
